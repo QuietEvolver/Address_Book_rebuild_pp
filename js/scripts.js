@@ -48,6 +48,12 @@ Contact.prototype.fullName = function() {
 Contact.prototype.wholeContact = function(){
    return this.firstName + " " + this.lastName  + " Id: " + this.id + " Phone Number: " + this.phoneNumber;
   }
+// event.target represents the element that the event originated from. In our case, it's our <li> element that we click on inside of the contacts div, and the id property in event.target.id corresponds to the list item's id attribute
+/*- We're able to create an event handler that reacts to clicks on elements that don't yet exist in the DOM.
+-By accessing event.target, we're able to write code based on the data of elements that do not yet exist, and do stuff with that data.*/
+function displayContactDetails(event) {
+  console.log("The id of this <li> is " + event.target.id + ".");
+}
 
 // UI Logic
 
@@ -77,7 +83,35 @@ function handleFormSubmission(e){
   document.getElementById("output").innerText =  contacts.wholeContact(); // calling the method on the instance prints output to DOM
   console.log("addressBook: ", addressBook); 
 }
+// User Interface Logic ---------
+// Ep: https://www.learnhowtoprogram.com/intermediate-javascript/object-oriented-javascript/address-book-adding-interactivity
+// let addressBook = new AddressBook();
+// function listContacts(addressBookToDisplay) {
+//   let contactsDiv = document.querySelector("div#contacts");
+//   contactsDiv.innerText =  null;
+//   const ul = document.createElement("ul");
+//   Object.keys(addressBookToDisplay.contacts).forEach(function(key) {
+//     const contact = addressBookToDisplay.findContact(key);
+//     const li = document.createElement("li");
+//     li.append(contact.fullName());
+//     li.setAttribute("id", contact.id);
+//     ul.append(li);
+//   });
+//   contactsDiv.append(ul);
+// }
+
+function handleFormSubmissionSearch(e){
+  e.preventDefault();
+  const searchId = (document.getElementById("input-value-id")).value;
+  addressBook.findContact(contacts);
+}
 
 window.addEventListener("load", function(){
   document.querySelector("form#contact-in").addEventListener("submit", handleFormSubmission);
+  // on click button fxMethod()ln~51
+  document.querySelector("div#search-id").addEventListener("click", displayContactDetails);  
 });
+
+// window.addEventListener("load", function(){
+//   document.querySelector("form#search-id").addEventListener("submit", handleFormSubmission);
+// });
