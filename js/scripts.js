@@ -61,7 +61,7 @@ function handleFormSubmission(e){
   console.log("last Name: ", lastName);
   console.log("Phone: ", phoneNumber);
   console.log("addressBook.contacts: ", addressBook.contacts);
-  let contacts = new Contact(firstName, lastName, phoneNumber); // must pass in corresponding params in order for fx to run
+  let contacts = new Contact(firstName, lastName, phoneNumber);  // must pass in corresponding params in order for fx to run
   console.log("contact instance: ", contacts);
   document.getElementById("output").innerText = addressContacts;
 }
