@@ -46,9 +46,8 @@ Contact.prototype.wholeContact = function(){
    return this.firstName + " " + this.lastName  + " Id: " + this.id + " Phone Number: " + this.phoneNumber;
   }
 
-  // let addressContactsStrToArr = addressBook.split(contacts); // push contact into AB
-  // console.log("addressContactsStrToArr: ", addressContactsStrToArr);
   // // UI Logic
+  let addressBook = new AddressBook(); 
 
 function handleFormSubmission(e){
   e.preventDefault();
@@ -59,18 +58,22 @@ function handleFormSubmission(e){
   console.log("last Name: ", lastName);
   console.log("Phone: ", phoneNumber);
   // instance ofAB
-  let addressBook = new AddressBook(); 
   // must pass in corresponding params in order for fx to run
   // create any contact instance(s) for the AB
-  console.log("addressBook instance", addressBook);
+  console.log("Create addressBook instance", addressBook);
   let contacts = new Contact(firstName, lastName, phoneNumber); 
-  console.log("contact instance: ", contacts);
-  console.log("addressBook.contacts: ", addressBook.contacts);
+  console.log(" Create contact instance: ", contacts);
+  // // addressBook.assignId(contacts);// invoke the assign ID fxn method
+  // console.log("addressBook.assignId(contacts);" , addressBook.assignId(contacts));
   addressBook.addContact(contacts);
   addressBook.findContact(contacts);
+  let addressContactsStrToArr = Array.from(addressBook);// addressBook.split(contacts); // push contact into AB
+  console.log("addressContactsStrToArr: ", addressContactsStrToArr);
+  addressContactsStrToArr.push(contacts);
+  console.log("addressBook.contacts: ", addressBook.contacts);
   contacts.fullName(); // calls fullNm fx to DOM
-  //addressBook.fullName(this.contacts.fullName);
   document.getElementById("output").innerText =  contacts.wholeContact(); // calling the method on the instance prints output to DOM
+  console.log("addressBook: ", addressBook); 
 }
 
 window.addEventListener("load", function(){
