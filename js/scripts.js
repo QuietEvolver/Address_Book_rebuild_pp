@@ -42,16 +42,30 @@ Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 };
 
-// UI Logic
+  let addressBook = new AddressBook(); // instance ofAB
+  console.log("addressBook instance", addressBook);
+  // // let contacts = new Contact(); // create any contact instance(s) for the AB
+  // console.log("contact instance: ", contacts);
+  let addressContacts = [];
+  // addressBook.push(contacts); // push contact into AB
+  
+  
+  // UI Logic
 
 function handleFormSubmission(e){
   e.preventDefault();
   const firstName = (document.getElementById("input-value-1")).value;
-  document.getElementById("output-passage").removeAttribute("class");
-  document.getElementById("user-input").innerText = computeInput(numToArray(inputNumber));
-
+  const lastName = (document.getElementById("input-value-2")).value;
+  const phoneNumber = (document.getElementById("input-value-3")).value;
+  console.log("First Name: ", firstName);
+  console.log("last Name: ", lastName);
+  console.log("Phone: ", phoneNumber);
+  console.log("addressBook.contacts: ", addressBook.contacts);
+  let contacts = new Contact(firstName, lastName, phoneNumber); // must pass in corresponding params in order for fx to run
+  console.log("contact instance: ", contacts);
+  document.getElementById("output").innerText = addressContacts;
 }
 
 window.addEventListener("load", function(){
-  document.querySelector("form#number-in").addEventListener("submit", handleFormSubmission);
+  document.querySelector("form#contact-in").addEventListener("submit", handleFormSubmission);
 });
