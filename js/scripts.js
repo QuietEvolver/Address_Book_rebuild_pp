@@ -47,24 +47,60 @@ Contact.prototype.fullName = function() {
 
 Contact.prototype.wholeContact = function(){
    return this.firstName + " " + this.lastName  + " Id: " + this.id + " Phone Number: " + this.phoneNumber;
-  }
-// event.target represents the element that the event originated from. In our case, it's our <li> element that we click on inside of the contacts div, and the id property in event.target.id corresponds to the list item's id attribute
-/*- We're able to create an event handler that reacts to clicks on elements that don't yet exist in the DOM.
--By accessing event.target, we're able to write code based on the data of elements that do not yet exist, and do stuff with that data.*/
-function displayContactDetails(event) {
-  console.log("The id of this <li> is " + event.target.id + ".");
 }
 
-// UI Logic
+
+
+
+// // User Interface Logic ---------
+// // Ep: https://www.learnhowtoprogram.com/intermediate-javascript/object-oriented-javascript/address-book-adding-interactivity
+// // let addressBook = new AddressBook();
+// function listContacts(addressBookToDisplay) {
+//   let contactsDiv = document.querySelector("div#contacts");
+//   contactsDiv.innerText =  null;
+//   const ul = document.createElement("ul");
+//   Object.keys(addressBookToDisplay.contacts).forEach(function(key) {
+//     const contact = addressBookToDisplay.findContact(key);
+//     const li = document.createElement("li");
+//     li.append(contact.fullName());
+//     li.setAttribute("id", contact.id);
+//     ul.append(li);
+//   });
+//   contactsDiv.append(ul);
+// }
+
+// // event.target represents the element that the event originated from. In our case, it's our <li> element that we click on inside of the contacts div, and the id property in event.target.id corresponds to the list item's id attribute
+// /*- We're able to create an event handler that reacts to clicks on elements that don't yet exist in the DOM.
+// -By accessing event.target, we're able to write code based on the data of elements that do not yet exist, and do stuff with that data.*/
+// function displayContactDetails(event) {
+//   console.log("The id of this <li> is " + event.target.id + ".");
+//   const contact = addressBook.findContact(event.target.id);
+//   document.querySelector(".first-name").innerText = contact.firstName;
+//   document.querySelector(".last-name").innerText = contact.lastName;
+//   document.querySelector(".phone-number").innerText = contact.phoneNumber;
+//   document.querySelector("h2").removeAttribute("class");
+// }
+function displayContactDetails(e){
+  // const ul = document.createElement("ul");
+  // Object.keys(addressBook.contacts).forEach(function(key) {
+  //   const contact = addressBook.findContact(key);  
+  //   const li = document.createElement("li");
+  //   li.append(contact.fullName());
+  //   li.setAttribute("id", contact.id);
+  //   ul.append(li);
+  // });
+  const contact = addressBook.findContact(event.target.id);
+  document.querySelector(".first-name").innerText = contact.firstName;
+  document.querySelector(".last-name").innerText = contact.lastName;
+  document.querySelector(".phone-number").innerText = contact.phoneNumber;
+  document.querySelector("div#contact-details").removeAttribute("class");
+}
 
 function handleFormSubmission(e){
   e.preventDefault();
   const firstName = (document.getElementById("input-value-1")).value;
   const lastName = (document.getElementById("input-value-2")).value;
   const phoneNumber = (document.getElementById("input-value-3")).value;
-  console.log("First Name: ", firstName);
-  console.log("last Name: ", lastName);
-  console.log("Phone: ", phoneNumber);
   // instance ofAB
   // must pass in corresponding params in order for fx to run
   // create any contact instance(s) for the AB
@@ -82,36 +118,18 @@ function handleFormSubmission(e){
   contacts.fullName(); // calls fullNm fx to DOM
   document.getElementById("output").innerText =  contacts.wholeContact(); // calling the method on the instance prints output to DOM
   console.log("addressBook: ", addressBook); 
-}
-// User Interface Logic ---------
-// Ep: https://www.learnhowtoprogram.com/intermediate-javascript/object-oriented-javascript/address-book-adding-interactivity
-// let addressBook = new AddressBook();
-// function listContacts(addressBookToDisplay) {
-//   let contactsDiv = document.querySelector("div#contacts");
-//   contactsDiv.innerText =  null;
-//   const ul = document.createElement("ul");
-//   Object.keys(addressBookToDisplay.contacts).forEach(function(key) {
-//     const contact = addressBookToDisplay.findContact(key);
-//     const li = document.createElement("li");
-//     li.append(contact.fullName());
-//     li.setAttribute("id", contact.id);
-//     ul.append(li);
-//   });
-//   contactsDiv.append(ul);
-// }
-
-function handleFormSubmissionSearch(e){
-  e.preventDefault();
-  const searchId = (document.getElementById("input-value-id")).value;
-  addressBook.findContact(contacts);
+  const searchId = document.getElementById("input-value-id").value;
+  addressBook.findContact(searchId);
+  let search = addressBook.findContact(searchId);
+  const contact = addressBook.findContact(e.target.id);
+  console.log("searchId ", searchId );
+  console.log("search()", search );
+  document.getElementById("output").innerText = contact;
 }
 
 window.addEventListener("load", function(){
   document.querySelector("form#contact-in").addEventListener("submit", handleFormSubmission);
   // on click button fxMethod()ln~51
-  document.querySelector("div#search-id").addEventListener("click", displayContactDetails);  
+  document.querySelector("button#search-id-button").addEventListener("click", displayContactDetails);   
+  // document.querySelector("div#contacts").addEventListener("click", displayContactDetails);  
 });
-
-// window.addEventListener("load", function(){
-//   document.querySelector("form#search-id").addEventListener("submit", handleFormSubmission);
-// });
