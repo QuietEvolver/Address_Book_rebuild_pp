@@ -1,7 +1,7 @@
 // Business Logic for AddressBook ---------
 function AddressBook() {
-  this.contacts = {};
   this.currentId = 0;
+  this.contacts = {};
 }
 
 AddressBook.prototype.assignId = function() {
@@ -40,7 +40,11 @@ function Contact(firstName, lastName, phoneNumber) {
 
 Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
-};
+}; 
+
+Contact.prototype.wholeContact = function(){
+   return this.firstName + " " + this.lastName  + " Id: " + this.id + " Phone Number: " + this.phoneNumber;
+  }
 
   // let addressContactsStrToArr = addressBook.split(contacts); // push contact into AB
   // console.log("addressContactsStrToArr: ", addressContactsStrToArr);
@@ -63,8 +67,10 @@ function handleFormSubmission(e){
   console.log("contact instance: ", contacts);
   console.log("addressBook.contacts: ", addressBook.contacts);
   addressBook.addContact(contacts);
-  
-  document.getElementById("output").innerText = addressContacts;
+  addressBook.findContact(contacts);
+  contacts.fullName(); // calls fullNm fx to DOM
+  //addressBook.fullName(this.contacts.fullName);
+  document.getElementById("output").innerText =  contacts.wholeContact(); // calling the method on the instance prints output to DOM
 }
 
 window.addEventListener("load", function(){
