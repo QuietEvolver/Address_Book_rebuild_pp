@@ -1,8 +1,12 @@
 // Business Logic for AddressBook ---------
+// It will make the new AddressBook() global so a new instance is only created once and the new Contacts increment to that particular AB instance.
+const addressBook = new AddressBook(); 
+
 function AddressBook() {
   this.currentId = 0;
   this.contacts = {};
 }
+
 
 AddressBook.prototype.assignId = function() {
   this.currentId += 1;
@@ -30,7 +34,6 @@ AddressBook.prototype.deleteContact = function(id) {
   delete this.contacts[id];
   return true;
 };
-
 // Business Logic for Contacts ---------
 function Contact(firstName, lastName, phoneNumber) {
   this.firstName = firstName;
@@ -46,8 +49,7 @@ Contact.prototype.wholeContact = function(){
    return this.firstName + " " + this.lastName  + " Id: " + this.id + " Phone Number: " + this.phoneNumber;
   }
 
-  // // UI Logic
-  let addressBook = new AddressBook(); 
+// UI Logic
 
 function handleFormSubmission(e){
   e.preventDefault();
